@@ -3,11 +3,15 @@ let previousGrid = [];
 let previousPreviousGrid = [];
 let size = 50;
 let iterations = 0;
+let population = 0;
 
 for (let x = 0; x < size; x++) {
   grid[x] = [];
   for (let y = 0; y < size; y++) {
     grid[x][y] = Math.random() > 0.5;
+    if (grid[x][y]) {
+      population++;
+    }
   }
 }
 
@@ -36,6 +40,9 @@ function nextGeneration() {
         changes++;
       }
       grid[x][y] = newState;
+      if (newState) {
+        population++;
+      }
     }
   }
   return changes;
@@ -78,6 +85,7 @@ setInterval(() => {
   }
   iterations++;
   updateGrid();
+  updateStats();
 }, 1000);
 
 function updateGrid() {
@@ -92,4 +100,8 @@ function updateGrid() {
       }
     }
   }
+}
+function updateStats() {
+  document.getElementById('generation').innerHTML = iterations;
+  document.getElementById('population').innerHTML = population;
 }
