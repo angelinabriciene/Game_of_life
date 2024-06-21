@@ -45,6 +45,7 @@ function nextGeneration() {
       }
     }
   }
+  population = countPopulation(grid);
   return changes;
 }
 
@@ -101,6 +102,21 @@ function updateGrid() {
     }
   }
 }
+
+function countPopulation(grid) {
+  let population = 0;
+  for (let x = 0; x < size; x++) {
+    for (let y = 0; y < size; y++) {
+      if (grid[x][y]) {
+        population++;
+      }
+    }
+  }
+  return population;
+}
+
+
+
 function updateStats() {
   document.getElementById('generation').innerHTML = iterations;
   document.getElementById('population').innerHTML = population;
