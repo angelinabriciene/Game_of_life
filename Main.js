@@ -4,6 +4,7 @@ let previousPreviousGrid = [];
 let size = 50;
 let iterations = 0;
 let population = 0;
+let intervalId;
 
 for (let x = 0; x < size; x++) {
   grid[x] = [];
@@ -77,12 +78,14 @@ function countLiveNeighbors(grid, x, y) {
   return count;
 }
 
-setInterval(() => {
+intervalId = setInterval(() => {
   const changes = nextGeneration();
   if (changes === 0) {
-    console.log('Equilibrium reached after ' + iterations + ' iterations.');
+    document.getElementById('message').innerHTML = "Equilibrium reached after " + iterations + " iterations.<br>Good bye digital artificial life form!";
+    clearInterval(intervalId);
   } else if (JSON.stringify(grid) === JSON.stringify(previousPreviousGrid)) {
-    console.log('Blinker state reached after ' + iterations + ' iterations.');
+    document.getElementById('message').innerHTML = "Blinker state reached after " + iterations + " iterations.<br>Good bye digital artificial life form!";
+    clearInterval(intervalId);
   }
   iterations++;
   updateGrid();
@@ -114,8 +117,6 @@ function countPopulation(grid) {
   }
   return population;
 }
-
-
 
 function updateStats() {
   document.getElementById('generation').innerHTML = iterations;
